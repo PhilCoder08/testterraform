@@ -1,5 +1,26 @@
-variable "resource_group_name" {
-  default = "terraform_rg"
+variable "resourceGroupName" {
+  type    = string
+  default = "spa_auth_rg"
+}
+
+variable "location" {
+  type    = string
+  default = "westeurope"
+}
+
+variable "appServicePlanName" {
+  type    = string
+  default = "ASP-spatestrg-afb6"
+}
+
+variable "appServiceAppName" {
+  type    = string
+  default = "spa-auth-backend-app"
+}
+
+variable "storageFrontendName" {
+  type    = string
+  default = "spaauthfrontend"
 }
 
 variable "default_tags" {
