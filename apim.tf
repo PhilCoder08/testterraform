@@ -12,6 +12,7 @@ resource "azurerm_api_management_api" "main-api" {
   api_management_name = azurerm_api_management.main-apim.name
   name                = "spa-auth-backend"
   revision            = "1"
+  path                = "test1"
 
   subscription_required = false
 

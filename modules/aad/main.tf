@@ -80,6 +80,48 @@ resource "azuread_application" "api" {
   }
 }
 
+resource "azuread_service_principal" "api" {
+  application_id = azuread_application.api.application_id
+
+  tags = [
+    "HideApp",
+    "WindowsAzureActiveDirectoryIntegratedApp",
+  ]
+
+  #   oauth2_permission_scope_ids = {
+
+  #   }
+
+  #   oauth2_permission_scopes = [
+
+  #   ]
+
+  #   service_principal_names = [
+
+  #   ]
+}
+
+resource "azuread_service_principal" "spa" {
+  application_id = azuread_application.spa.application_id
+
+  tags = [
+    "HideApp",
+    "WindowsAzureActiveDirectoryIntegratedApp",
+  ]
+
+  #   oauth2_permission_scope_ids = {
+
+  #   }
+
+  #   oauth2_permission_scopes = [
+
+  #   ]
+
+  #   service_principal_names = [
+
+  #   ]
+}
+
 resource "azuread_application" "spa" {
   display_name = "my-spa"
   group_membership_claims = [
