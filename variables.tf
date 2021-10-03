@@ -1,6 +1,5 @@
 variable "resourceGroupName" {
-  type    = string
-  default = "spa_auth_rg"
+  type = string
 }
 
 variable "location" {
@@ -14,13 +13,23 @@ variable "appServicePlanName" {
 }
 
 variable "appServiceAppName" {
-  type    = string
-  default = "spa-auth-backend-app"
+  type = string
 }
 
 variable "storageFrontendName" {
-  type    = string
-  default = "spaauthfrontend"
+  type = string
+}
+
+variable "apimName" {
+  type = string
+}
+
+variable "apimPublisherEmail" {
+  type = string
+}
+
+variable "apimPublisherName" {
+  type = string
 }
 
 variable "default_tags" {
@@ -31,4 +40,8 @@ variable "default_tags" {
     environment = "dev"
     contact     = "DevOps Team"
   }
+}
+
+variable "aadTenantId" {
+  type = string
 }

@@ -49,6 +49,7 @@ resource "azurerm_storage_account" "frontend" {
 }
 
 module "test-aad" {
-  source = "./modules/aad"
+  source   = "./modules/aad"
+  tenantId = var.aadTenantId
 }
 

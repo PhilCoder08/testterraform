@@ -1,16 +1,16 @@
 resource "azurerm_api_management" "main-apim" {
-  location            = "westeurope"
-  name                = "spa-auth-apim"
-  publisher_email     = "philip.wenger@ti8m.ch"
-  publisher_name      = "spa-auth"
-  resource_group_name = "spa_auth_rg"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  name                = var.apimName
+  publisher_email     = var.apimPublisherEmail
+  publisher_name      = var.apimPublisherName
   sku_name            = "Developer_1"
 }
 
 resource "azurerm_api_management_api" "main-api" {
+  resource_group_name = azurerm_resource_group.main.name
   api_management_name = azurerm_api_management.main-apim.name
   name                = "spa-auth-backend"
-  resource_group_name = "spa_auth_rg"
   revision            = "1"
 
   subscription_required = false
@@ -22,7 +22,7 @@ resource "azurerm_api_management_api" "main-api" {
 }
 
 resource "azurerm_api_management_api_policy" "main-api-policy" {
-  resource_group_name = "spa_auth_rg"
+  resource_group_name = azurerm_resource_group.main.name
   api_management_name = azurerm_api_management.main-apim.name
   api_name            = azurerm_api_management_api.main-api.name
 
@@ -30,32 +30,32 @@ resource "azurerm_api_management_api_policy" "main-api-policy" {
 }
 
 resource "azurerm_api_management_api_operation" "main-api-get" {
-  resource_group_name = "spa_auth_rg"
+  resource_group_name = azurerm_resource_group.main.name
   api_management_name = azurerm_api_management.main-apim.name
   api_name            = azurerm_api_management_api.main-api.name
+  operation_id        = "614b35ec8b9d658a102f9498"
   display_name        = "spa-auth-backend_GET"
   method              = "GET"
-  operation_id        = "614b35ec8b9d658a102f9498"
   url_template        = "/*"
 }
 
 resource "azurerm_api_management_api_operation" "main-api-get-weatherforecast" {
-  resource_group_name = "spa_auth_rg"
+  resource_group_name = azurerm_resource_group.main.name
   api_management_name = azurerm_api_management.main-apim.name
   api_name            = azurerm_api_management_api.main-api.name
+  operation_id        = "weatherforecast"
   display_name        = "weatherforecast"
   method              = "GET"
-  operation_id        = "weatherforecast"
   url_template        = "/weatherforecast"
 }
 
 resource "azurerm_api_management_openid_connect_provider" "developer-portal" {
-  resource_group_name = "spa_auth_rg"
+  resource_group_name = azurerm_resource_group.main.name
   name                = "apim-developer-portal-client-provider"
   description         = ""
   api_management_name = azurerm_api_management.main-apim.name
-  client_id           = "61ea8f66-3f29-4c4d-a43a-501f10c25057"
+  client_id           = module.test-aad.developerPortalClientId
   client_secret       = module.test-aad.developer-portal-client-secret
   display_name        = "apim-developer-portal-client-provider"
-  metadata_endpoint   = "https://login.microsoftonline.com/392924fc-17eb-4199-94fd-fbd9ee70077e/v2.0/.well-known/openid-configuration"
+  metadata_endpoint   = "https://login.microsoftonline.com/${var.aadTenantId}/v2.0/.well-known/openid-configuration"
 }

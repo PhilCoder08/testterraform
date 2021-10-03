@@ -1,5 +1,5 @@
 provider "azuread" {
-  tenant_id = "392924fc-17eb-4199-94fd-fbd9ee70077e"
+  tenant_id = var.tenantId
 }
 
 resource "azuread_application" "api" {
@@ -200,5 +200,4 @@ resource "azuread_application" "developer-portal" {
 
 resource "azuread_application_password" "developer-portal" {
   application_object_id = azuread_application.developer-portal.object_id
-
 }

@@ -1,0 +1,3 @@
+variable "tenantId" {
+  type = string
+}
