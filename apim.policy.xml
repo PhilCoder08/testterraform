@@ -1,0 +1,32 @@
+<policies>
+        <inbound>
+                <base />
+                <cors>
+                        <allowed-origins>
+                                <origin>*</origin>
+                        </allowed-origins>
+                        <allowed-methods>
+                                <method>*</method>
+                        </allowed-methods>
+                        <allowed-headers>
+                                <header>*</header>
+                        </allowed-headers>
+                        <expose-headers>
+                                <header>*</header>
+                        </expose-headers>
+                </cors>
+                <validate-jwt header-name="Authorization" failed-validation-httpcode="402" failed-validation-error-message="validate-jtw fail: Unauthorized. Access token is missing or invalid.">
+                        <openid-config url="https://login.microsoftonline.com/392924fc-17eb-4199-94fd-fbd9ee70077e/v2.0/.well-known/openid-configuration" />
+                </validate-jwt>
+                <set-backend-service base-url="https://spa-auth-backend-app.azurewebsites.net/" />
+        </inbound>
+        <backend>
+                <base />
+        </backend>
+        <outbound>
+                <base />
+        </outbound>
+        <on-error>
+                <base />
+        </on-error>
+</policies>
